@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { ACNET } from "@fnal/acnet";
+import DPM, { DPMContext, RequestMap } from "@fnal/app-framework/components/DPM";
 import './App.css';
+import Title from './components/Title';
+import SubPages from './components/SubPages';
+import Panel from './components/Panel';
+import ParamRow from './components/ParamRow';
+import ParamInput from './components/ParamInput';
 
-const App: React.FC = () => {
+type AppProps = {
+  acnet: ACNET;
+}
+
+const App: React.FC<AppProps> = (props) => {
+  const [requestList, setRequestList] = useState(["D:OUTTMP@P,15H", "G:SCTIME@P,15H"]);
+  const [paramRows, setParamRows] = useState(Array(30).fill({param: ''}));
+  const [currentPage, setCurrentPage] = useState('R192');
+  const [pageTitle, setPageTitle] = useState('');
+  const [subPages, setSubPages] = useState(["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"]);
+  const [currentSubPage, setCurrentSubPage] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <DPM acnet={props.acnet} drf={requestList}>
+      <Panel>
+        <Title title={pageTitle} page={currentPage} newPageTrigger={setCurrentPage}/>
+        <SubPages pages={subPages} currentPage={currentSubPage} setCurrentPage={setCurrentSubPage}/>
+        <DPMContext.Consumer>
+          {
+            dpmContext => {
+              const localContext = dpmContext as RequestMap;
+              if (localContext) {
+                return paramRows.map((request, requestIndex) => {
+                  return localContext[request.param]
+                  ? <ParamRow key={requestIndex} row={requestIndex}/>
+                  : <ParamInput key={requestIndex} row={requestIndex} addRequest={(newRequest: string) => {setRequestList([...requestList, newRequest]);paramRows[requestIndex] = newRequest;setParamRows(paramRows)}}/>
+                })
+              }
+              return 'loading...'
+            }
+          }
+        </DPMContext.Consumer>
+      </Panel>
+    </DPM>
+  )
 }
 
 export default App;

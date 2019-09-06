@@ -1,0 +1,17 @@
+.subPages {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    justify-items: center;
+    margin: 0.2rem 0;
+}
+
+.subPage {
+    cursor: pointer;
+    padding: 0.01rem 0.2rem;
+    border-radius: 0.2rem;
+}
+
+.selected {
+    color: var(--gray-bg);
+    background-color: var(--fnal-label-color);
+}

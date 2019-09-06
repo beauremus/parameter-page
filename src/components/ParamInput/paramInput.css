@@ -1,0 +1,33 @@
+:root {
+    --h: 0;
+    --s: 0%;
+    --l: 50%;
+}
+
+.paramRow {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    min-width: 0;
+}
+
+.paramRow:nth-child(odd) {
+    background-color: hsl(var(--h), var(--s), var(--l));
+}
+
+.paramRow:nth-child(even) {
+    background-color: hsl(var(--h), var(--s), calc(var(--l) + 5%));
+}
+
+.paramRow > * {
+    padding-left: 0.3rem;
+}
+
+.paramInput {
+    width: 100%;
+    background-color: var(--base-color);
+    color: var(--contrast);
+    border: 0;
+    font-size: inherit;
+}

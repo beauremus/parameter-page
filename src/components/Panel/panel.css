@@ -1,0 +1,7 @@
+.panel {
+    border-radius: 0.4rem;
+    background-color: var(--gray-bg);
+    overflow: hidden;
+    margin: 1rem;
+    padding: 1rem;
+}
