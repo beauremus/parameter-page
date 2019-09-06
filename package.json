@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fnal/app-framework": "^1.1.0",
+    "@fnal/app-framework": "^1.1.2",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
     "@types/react": "16.9.2",
@@ -33,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.2.2"
   }
 }
