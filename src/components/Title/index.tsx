@@ -15,6 +15,7 @@ type TitleProps = {
   title: string;
   page: string;
   newPageTrigger: React.Dispatch<React.SetStateAction<string>>;
+  possiblePages: string[];
 }
 
 const Title: React.FC<TitleProps> = (props) => {
@@ -28,7 +29,12 @@ const Title: React.FC<TitleProps> = (props) => {
         onKeyUp={event => {
           event.persist()
           if (event.key === 'Enter') {
-            props.newPageTrigger(page)
+            if (props.possiblePages.includes(page)) {
+              console.log(page)
+              props.newPageTrigger(page);
+            } else {
+              console.log(`Page doesn't exist`)
+            }
           }
         }}
         onChange={event => {

@@ -3,6 +3,21 @@ import './paramInput.css';
 
 const ParamInput: React.FC<any> = (props) => {
   const [param, setParam] = useState('');
+
+  function focusNextInput(input: HTMLInputElement) {
+    if (input.parentElement) {
+      if (input.parentElement.nextElementSibling) {
+        if (input.parentElement.nextElementSibling.firstElementChild) {
+          const sibling = input.parentElement.nextElementSibling.firstElementChild;
+
+          if (sibling instanceof HTMLInputElement) {
+            sibling.focus();
+          }
+        }
+      }
+    }
+  }
+
   return (
     <div className="paramRow" id={`param-row-${props.row}`}>
       <input
@@ -18,6 +33,7 @@ const ParamInput: React.FC<any> = (props) => {
           event.persist();
           if (event.key === 'Enter') {
             props.addRequest(param);
+            focusNextInput(event.target as HTMLInputElement);
           }
         }}
       />
@@ -26,8 +42,3 @@ const ParamInput: React.FC<any> = (props) => {
 }
 
 export default ParamInput;
-
-// newInput.addEventListener('keyup', ({ code, target }) => {
-//   if (code === 'Enter') determineRequest(target);
-// });
-// newRow.appendChild(newInput);

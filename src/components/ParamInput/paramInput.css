@@ -4,14 +4,6 @@
     --l: 50%;
 }
 
-.paramRow {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    min-width: 0;
-}
-
 .paramRow:nth-child(odd) {
     background-color: hsl(var(--h), var(--s), var(--l));
 }

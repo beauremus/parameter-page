@@ -1,0 +1,37 @@
+.paramRow {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    gap: 1ch;
+}
+
+.paramRow > * {
+    padding-left: 1ch;
+}
+
+.paramRow > *:first-child {
+    padding-left: 0;
+}
+
+.name {
+    color: cyan;
+}
+
+.description {
+    flex-shrink: 2;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.data > * {
+    padding-left: 1ch;
+}
+
+.setting {
+    color: yellow;
+}
+
+.dataValue {
+    color: limegreen;
+}

@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fnal/app-framework": "^1.1.2",
+    "@fnal/app-framework": "^1.1.3",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-scripts": "3.1.1",
     "typescript": "3.6.2"
   },
@@ -35,6 +35,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.2.2"
-  }
+    "eslint": "^6.5.1"
+  },
+  "proxy": "https://www-ad.fnal.gov"
 }
