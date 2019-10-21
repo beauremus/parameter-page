@@ -32,7 +32,7 @@ const ParamInput: React.FC<any> = (props) => {
         onKeyUp={event => {
           event.persist();
           if (event.key === 'Enter') {
-            props.addRequest(param);
+            props.addRequest(param, props.row);
             focusNextInput(event.target as HTMLInputElement);
           }
         }}

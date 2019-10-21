@@ -1,16 +1,25 @@
 import React from 'react';
 import './paramRow.css';
 
-const ParamRow: React.FC<any> = (props) => {
-  const { reading, setting } = props.details;
+type RowProps = {
+  name: string;
+  description: string;
+  originalSetting?: string | number;
+  currentSetting?: string | number;
+  reading?: string | number;
+  units?: string | number;
+  status?: string;
+}
+
+const ParamRow: React.FC<RowProps> = (props) => {
   return (
     <div className="paramRow">
-      <span className="name">{reading.info.name}</span>
-      <span className="description">{reading.info.description}</span>
+      <span className="name">{props.name}</span>
+      <span className="description">{props.description}</span>
       <div className="data">
-        <span className="setting">{setting.data.data.toFixed(2)}</span>
-        <span className="dataValue">{reading.data.data.toFixed(2)}</span>
-        <span className="units">{reading.info.units}</span>
+        <span className="setting">{props.currentSetting}</span>
+        <span className="dataValue">{props.reading}</span>
+        <span className="units">{props.units}</span>
       </div>
     </div>
   );

@@ -1,21 +1,31 @@
 import React from 'react';
 import './subPages.css';
 
-type props = {
-  pages: string[];
-  currentPage: number;
-  setCurrentPage(currentPage: number): void;
+type SubPages = {
+  subPage: number;
+  tab: number;
 }
 
-const SubPages: React.FC<props> = (props) => {
-  function handleClick(index: number) {
-    return () => props.setCurrentPage(index)
-  }
+type SubPageProps = {
+  subPage: number;
+  tabs: string[];
+  tab: number;
+  changeSubPage(subPages: SubPages): void;
+}
 
+const SubPages: React.FC<SubPageProps> = (props) => {
   return (
     <div className="subPages">
-      {props.pages.map((page, index) => {
-        return <div key={index} className={`subPage${index === props.currentPage ? ' selected' : ''}`} onClick={handleClick(index)}>{page}</div>
+      {props.tabs.map((tab, index) => {
+        return (
+          <div
+            key={`${index}${tab}`}
+            className={`subPage${index === props.tab ? ' selected' : ''}`}
+            onClick={() => props.changeSubPage({ subPage: props.subPage, tab: index })}
+          >
+            {tab}
+          </div>
+        )
       })}
     </div>
   );
