@@ -19,7 +19,7 @@
 .paramInput {
     width: 100%;
     background-color: var(--base-color);
-    color: var(--contrast);
+    color: white;
     border: 0;
     font-size: inherit;
 }

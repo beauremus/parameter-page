@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './paramInput.css';
 
 const ParamInput: React.FC<any> = (props) => {
-  const [param, setParam] = useState('');
+  const [param, setParam] = useState(props.children);
+
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) {
+      setParam(props.children);
+    }
+
+    return () => {
+      ignore = true;
+    };
+  }, [props.children])
 
   function focusNextInput(input: HTMLInputElement) {
     if (input.parentElement) {

@@ -99,8 +99,12 @@ const App: React.FC<AppProps> = (props) => {
 
         setParamRows(paramPageRows
           .map((row: any) => {
+            const rowText = row.devtxt;
+            const firstCharacter = rowText[0];
             return row.di === 0
-              ? { name: '' }
+              ? firstCharacter === '!' || firstCharacter === '#'
+                ? { name: rowText }
+                : { name: '' }
               : { name: `0:${row.di}${row.offsett !== 0 ? `[${row.offsett}]` : ''}` }
           }));
         const filteredRows = paramPageRows.filter((row: any) => row.di);
@@ -137,7 +141,12 @@ const App: React.FC<AppProps> = (props) => {
 
   const addRequest = (requestIndex: number) => {
     return (newRequest: string) => {
-      setRequestList([...requestList, newRequest, `${newRequest.replace(':', '_')}`, `${newRequest.replace(':', '|')}`]);
+      setRequestList([
+        ...requestList,
+        newRequest,
+        `${newRequest.replace(':', '_')}`, // Setting
+        `${newRequest.replace(':', '|')}` // Status
+      ]);
       paramRows[requestIndex] = {
         name: newRequest
       };
@@ -251,6 +260,8 @@ const App: React.FC<AppProps> = (props) => {
                     }
                   }
 
+                  // console.log(request.name[0] === '!' || request.name[0] === '#')
+
                   return localContext[request.name] || localContext[settingParam] || localContext[statusParam]
                     ? <ParamRow
                       key={requestIndex}
@@ -266,7 +277,10 @@ const App: React.FC<AppProps> = (props) => {
                     : <ParamInput
                       key={requestIndex}
                       row={requestIndex}
-                      addRequest={addRequest(requestIndex)} />
+                      addRequest={addRequest(requestIndex)}
+                    >
+                      {request.name[0] === '!' || request.name[0] === '#' ? request.name : ''}
+                    </ParamInput>
                 })
               }
               return 'loading...'
