@@ -1,5 +1,6 @@
 import React from 'react';
 import './paramRow.css';
+import Name from '../Name';
 
 type RowProps = {
   name: string;
@@ -10,12 +11,13 @@ type RowProps = {
   reading?: string | number;
   units?: string | number;
   status?: string;
+  addRequest(newRequest: string): void;
 }
 
 const ParamRow: React.FC<RowProps> = (props) => {
   return (
     <div className="paramRow">
-      <span className="name" title={props.request}>{props.name}</span>
+      <Name className="name" title={props.request} addRequest={props.addRequest}>{props.name}</Name>
       <span className="description">{props.description}</span>
       <div className="data">
         <span className="setting">{props.currentSetting}</span>

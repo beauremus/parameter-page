@@ -204,6 +204,7 @@ const App: React.FC<AppProps> = (props) => {
                       currentSetting={setting}
                       reading={reading}
                       units={units}
+                      addRequest={addRequest(requestIndex)}
                     />
                     : <ParamInput
                       key={requestIndex}
