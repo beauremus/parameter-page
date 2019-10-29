@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './title.css';
-import { EventEmitter } from 'events';
 
 const style: React.CSSProperties = {
   borderRadius: "0.2rem",

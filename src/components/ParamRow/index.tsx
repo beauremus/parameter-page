@@ -3,6 +3,7 @@ import './paramRow.css';
 
 type RowProps = {
   name: string;
+  request: string;
   description: string;
   originalSetting?: string | number;
   currentSetting?: string | number;
@@ -14,7 +15,7 @@ type RowProps = {
 const ParamRow: React.FC<RowProps> = (props) => {
   return (
     <div className="paramRow">
-      <span className="name">{props.name}</span>
+      <span className="name" title={props.request}>{props.name}</span>
       <span className="description">{props.description}</span>
       <div className="data">
         <span className="setting">{props.currentSetting}</span>

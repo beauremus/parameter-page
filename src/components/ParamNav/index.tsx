@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ParamTitle from '../ParamTitle'
 import SubPages from '../SubPages'
 
@@ -13,6 +13,7 @@ type NavProps = {
     possiblePages: string[];
     title: string;
     subPage: number;
+    subPageCount: number;
     tabs: string[];
     tab: number;
     updatePage(update: NavState): void;
@@ -50,6 +51,7 @@ const ParamNav: React.FC<NavProps> = (props) => {
             />
             <SubPages
                 subPage={props.subPage}
+                subPageCount={props.subPageCount}
                 tabs={props.tabs}
                 tab={props.tab}
                 changeSubPage={changeSubPage}
