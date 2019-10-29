@@ -1,6 +1,7 @@
 import React from 'react';
 import './paramRow.css';
 import Name from '../Name';
+import ParamStatus from "../ParamStatus";
 
 type RowProps = {
   name: string;
@@ -23,6 +24,7 @@ const ParamRow: React.FC<RowProps> = (props) => {
         <span className="setting">{props.currentSetting}</span>
         <span className="dataValue">{props.reading}</span>
         <span className="units">{props.units}</span>
+        <ParamStatus className="status">{props.status}</ParamStatus>
       </div>
     </div>
   );

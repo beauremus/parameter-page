@@ -1,30 +1,49 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-function index(props: any) {
-    const colors = props.colors || [
-        "black",
-        "blue",
-        "green",
-        "cyan",
-        "red",
-        "magenta",
-        "yellow",
-        "white"
-    ];
-
+const ParamStatus: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
+    const status = props.children as string;
+    const [first, second, third, fourth] = status.split('');
     return (
-        <div>
-
+        <div className={props.className}>
+            <span className="statusBit" style={{ color: first === '.' ? "green" : "red" }}>{first}</span>
+            <span className="statusBit" style={{ color: second === '.' ? "green" : "red" }}>{second}</span>
+            <span className="statusBit" style={{ color: third === '.' ? "green" : "red" }}>{third}</span>
+            <span className="statusBit" style={{ color: fourth === '+' ? "green" : "blue" }}>{fourth}</span>
         </div>
     )
 }
 
-index.propTypes = {
+export default ParamStatus
 
-}
 
-export default index
+
+// import React from 'react'
+// import PropTypes from 'prop-types'
+
+// function index(props: any) {
+//     const colors = props.colors || [
+//         "black",
+//         "blue",
+//         "green",
+//         "cyan",
+//         "red",
+//         "magenta",
+//         "yellow",
+//         "white"
+//     ];
+
+//     return (
+//         <div>
+
+//         </div>
+//     )
+// }
+
+// index.propTypes = {
+
+// }
+
+// export default index
 
 // class ParamStatus {
 //     constructor({ container, colors, characters }) {

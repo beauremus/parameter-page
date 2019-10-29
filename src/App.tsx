@@ -7,6 +7,7 @@ import ParamRow from './components/ParamRow';
 import ParamInput from './components/ParamInput';
 import ParamNav from './components/ParamNav';
 import usePages from './components/usePages';
+import { BasStatus } from '@fnal/dpm-client';
 
 type AppProps = {
   acnet: ACNET;
@@ -107,7 +108,9 @@ const App: React.FC<AppProps> = (props) => {
           ...filteredRows
             .map((row: any) => `0:${row.di}${row.offsett !== 0 ? `[${row.offsett}]` : ''}`),
           ...filteredRows
-            .map((row: any) => `0_${row.di}${row.offsett !== 0 ? `[${row.offsett}]` : ''}`)
+            .map((row: any) => `0_${row.di}${row.offsett !== 0 ? `[${row.offsett}]` : ''}`),
+          ...filteredRows
+            .map((row: any) => `0|${row.di}${row.offsett !== 0 ? `[${row.offsett}]` : ''}`)
         ]);
       }
     }
@@ -134,7 +137,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const addRequest = (requestIndex: number) => {
     return (newRequest: string) => {
-      setRequestList([...requestList, newRequest, `${newRequest.replace(':', '_')}`]);
+      setRequestList([...requestList, newRequest, `${newRequest.replace(':', '_')}`, `${newRequest.replace(':', '|')}`]);
       paramRows[requestIndex] = {
         name: newRequest
       };
@@ -166,8 +169,10 @@ const App: React.FC<AppProps> = (props) => {
                   let setting = '';
                   let reading = '';
                   let units = '';
+                  let status = '';
 
                   const settingParam = request.name.replace(':', '_');
+                  const statusParam = request.name.replace(':', '|');
 
                   if (localContext[settingParam]) {
                     name = localContext[settingParam].info.name;
@@ -180,6 +185,57 @@ const App: React.FC<AppProps> = (props) => {
                     } else {
                       setting = data.toFixed(2);
                     }
+                  }
+
+                  if (localContext[statusParam]) {
+                    name = localContext[statusParam].info.name;
+                    description = localContext[statusParam].info.description;
+                    units = localContext[statusParam].info.units || '';
+
+                    let finalStatus = '';
+                    const statusResponse = localContext[statusParam].data.data as BasStatus;
+
+                    if (statusResponse.on !== undefined) {
+                      if (statusResponse.on === true) {
+                        finalStatus += '.';
+                      } else {
+                        finalStatus += '*';
+                      }
+                    } else {
+                      finalStatus += ' ';
+                    }
+
+                    if (statusResponse.ready !== undefined) {
+                      if (statusResponse.ready === true) {
+                        finalStatus += '.';
+                      } else {
+                        finalStatus += 'T';
+                      }
+                    } else {
+                      finalStatus += ' ';
+                    }
+
+                    if (statusResponse.remote !== undefined) {
+                      if (statusResponse.remote === true) {
+                        finalStatus += '.';
+                      } else {
+                        finalStatus += 'L';
+                      }
+                    } else {
+                      finalStatus += ' ';
+                    }
+
+                    if (statusResponse.on !== undefined) {
+                      if (statusResponse.on === true) {
+                        finalStatus += '+';
+                      } else {
+                        finalStatus += '-';
+                      }
+                    } else {
+                      finalStatus += ' ';
+                    }
+
+                    status = finalStatus;
                   }
 
                   if (localContext[request.name]) {
@@ -195,7 +251,7 @@ const App: React.FC<AppProps> = (props) => {
                     }
                   }
 
-                  return localContext[request.name] || localContext[settingParam]
+                  return localContext[request.name] || localContext[settingParam] || localContext[statusParam]
                     ? <ParamRow
                       key={requestIndex}
                       request={request.name}
@@ -204,6 +260,7 @@ const App: React.FC<AppProps> = (props) => {
                       currentSetting={setting}
                       reading={reading}
                       units={units}
+                      status={status}
                       addRequest={addRequest(requestIndex)}
                     />
                     : <ParamInput

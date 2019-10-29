@@ -37,3 +37,7 @@
 .dataValue {
     color: limegreen;
 }
+
+.status {
+    display: inline;
+}
